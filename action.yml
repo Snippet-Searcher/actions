@@ -11,7 +11,8 @@ inputs:
     required: true
   username: 
     description: "Github actor username"
-    required: true
+    required: false
+    default: f-pochat
   password:
     description: "Github token"
     required: true
