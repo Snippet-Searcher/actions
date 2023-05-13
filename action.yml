@@ -16,13 +16,8 @@ inputs:
     description: "Github token"
     required: true
 
-jobs:
-  build-and-push-image:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-
+runs:
+  using: "composite"
     steps:
       - name: Print inputs
         run: echo ${{ inputs.name }}
