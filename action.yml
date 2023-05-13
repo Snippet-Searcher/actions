@@ -4,6 +4,17 @@ author: Snippet Searcher
 branding:
   icon: 'book'
   color: 'blue'
+  
+inputs:
+  name: 
+    description: "Name of the image"
+    required: true
+  username: 
+    description: "Github actor username"
+    required: true
+  password:
+    description: "Github token"
+    required: true
 
 jobs:
   build-and-push-image:
