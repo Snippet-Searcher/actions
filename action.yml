@@ -36,8 +36,8 @@ runs:
     - name: Build and push Docker image
       uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
       env: 
-        GITHUB_USERNAME: ${{ github.actor }}
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        GITHUB_USERNAME: ${{ input.username }}
+        GITHUB_TOKEN: ${{ input.password }}
       with:
         context: .
         push: true
