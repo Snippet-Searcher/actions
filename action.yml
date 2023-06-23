@@ -41,9 +41,7 @@ runs:
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
-        env:
-          DOCKER_BUILDKIT: 1
-        args: |
-          --build-arg GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
-          --build-arg GITHUB_ACTOR=${{ github.actor }}
+        build-args: |
+          GITHUB_TOKEN=${{ inputs.password }}
+          GITHUB_ACTOR=${{ inputs.username }}
     
