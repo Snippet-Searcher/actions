@@ -1,0 +1,30 @@
+name: Connect to Azure VM
+description: Connects to an Azure virtual machine and runs specified commands
+
+inputs:
+  ip:
+    description: 'IP address of the Azure VM'
+    required: true
+  key:
+    description: 'SSH private key to authenticate with the Azure VM'
+    required: true
+  username:
+    description: 'Username to connect to the Azure VM'
+    required: true
+  password:
+    description: 'Password port to connect to the Azure VM'
+    required: false
+
+runs:
+  using: "composite"
+  steps:
+
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v0.1.8
+       with:
+          host: ${{ inputs.ip }}
+          key: ${{ inputs.key }}
+          script: |
+            cd infra
+            docker compose down
+            docker compose up --build -d
