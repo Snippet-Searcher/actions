@@ -35,6 +35,8 @@ runs:
         images: ghcr.io/${{ inputs.name }}
 
     - name: Build and push Docker image
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
       with:
         context: .
@@ -42,6 +44,6 @@ runs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
-          GITHUB_TOKEN=${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN=$GITHUB_TOKEN
           GITHUB_ACTOR=${{ github.actor }}
     
