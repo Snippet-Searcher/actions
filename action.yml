@@ -18,6 +18,9 @@ inputs:
 
 runs:
   using: "composite"
+  env:
+    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    GITHUB_USERNAME: ${{ github.actor }}
   steps:
 
     - name: Log in to the Container registry
@@ -37,7 +40,7 @@ runs:
       uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
       with:
         context: .
-        build_args: '{"github_token": "${{ secrets.GITHUB_TOKEN }}", "github_username": "${{ github.actor }}"}'
+        build_args: '{"github_token": "${{ env.GITHUB_TOKEN }}", "github_username": "${{ env.GITHUB_USERNAME }}"}'
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
