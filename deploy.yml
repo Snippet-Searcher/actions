@@ -26,6 +26,7 @@ runs:
         host: ${{ inputs.ip }}
         key: ${{ inputs.key }}
         username: ingsis
+        password: password
         envs: STAGE
         script: |
             cd infra
