@@ -42,6 +42,6 @@ runs:
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
         build-args: |
-          GITHUB_TOKEN=${{ inputs.password }}
-          GITHUB_ACTOR=${{ inputs.username }}
+          github_token=${{ inputs.password }}
+          github_username=${{ inputs.username }}
     
