@@ -38,8 +38,8 @@ runs:
       with:
         context: .
         build_args:
-          - github_token: ${{ secrets.GITHUB_TOKEN }}
-          - github_username: ${{ github.actor }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          github_username: ${{ github.actor }}
         push: true
         tags: ${{ steps.meta.outputs.tags }}
         labels: ${{ steps.meta.outputs.labels }}
