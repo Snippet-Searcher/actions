@@ -21,7 +21,7 @@ runs:
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@v0.1.8
       env:
-        - STAGE: ${{ steps.extract_branch.outputs.branch }}
+        STAGE: ${{ steps.extract_branch.outputs.branch }}
       with:
         host: ${{ inputs.ip }}
         key: ${{ inputs.key }}
