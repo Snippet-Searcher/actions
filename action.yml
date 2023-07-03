@@ -1,47 +1,33 @@
-name: Create and publish a Docker image for Snippet Searcher
-description: Build and push Docker images
-author: Snippet Searcher
-branding:
-  icon: 'book'
-  color: 'blue'
-  
-inputs:
-  name: 
-    description: "Name of the image"
-    required: true
-  username: 
-    description: "Github actor username"
-    required: true
-  password:
-    description: "Github token"
-    required: true
+name: Connect to Azure VM
+description: Connects to an Azure virtual machine and runs specified commands
 
+inputs:
+  ip:
+    description: 'IP address of the Azure VM'
+    required: true
+  key:
+    description: 'SSH private key to authenticate with the Azure VM'
+    required: true
+    
 runs:
   using: "composite"
-
   steps:
 
-    - name: Log in to the Container registry
-      uses: docker/login-action@65b78e6e13532edd9afa3aa52ac7964289d1a9c1
-      with:
-        registry: ghcr.io
-        username: ${{ inputs.username }}
-        password: ${{ inputs.password }}
+    - name: Extract branch name
+      shell: bash
+      run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
+      id: extract_branch
 
-    - name: Extract metadata (tags, labels) for Docker
-      id: meta
-      uses: docker/metadata-action@9ec57ed1fcdbf14dcef7dfbe97b2010124a938b7
+    - name: executing remote ssh commands using password
+      uses: appleboy/ssh-action@v0.1.8
+      env:
+        - STAGE: ${{ steps.extract_branch.outputs.branch }}
       with:
-        images: ghcr.io/${{ inputs.name }}
-
-    - name: Build and push Docker image
-      uses: docker/build-push-action@f2a1d5e99d037542a71f64918e516c093c6f3fc4
-      with:
-        context: .
-        push: true
-        tags: ${{ steps.meta.outputs.tags }}
-        labels: ${{ steps.meta.outputs.labels }}
-        build-args: |
-          github_token=${{ inputs.password }}
-          github_username=${{ inputs.username }}
-    
+        host: ${{ inputs.ip }}
+        key: ${{ inputs.key }}
+        username: ingsis
+        password: password
+        envs: STAGE
+        script: |
+            cd infra
+            ./compose.sh $STAGE
