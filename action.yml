@@ -30,4 +30,5 @@ runs:
         envs: STAGE
         script: |
             cd infra
+            chmod +x compose
             ./compose.sh $STAGE
