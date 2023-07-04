@@ -18,10 +18,6 @@ runs:
       run: echo "branch=${GITHUB_HEAD_REF:-${GITHUB_REF#refs/heads/}}" >> $GITHUB_OUTPUT
       id: extract_branch
 
-    - name: Try
-      shell: bash
-      run: echo ${{ inputs.key }}
-
     - name: executing remote ssh commands using password
       uses: appleboy/ssh-action@v0.1.8
       env:
